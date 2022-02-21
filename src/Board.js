@@ -5,10 +5,7 @@ class Board extends React.Component {
 
   constructor(props){
     super(props)
-   this.submitDim  = this.submitDim.bind(this)
-   this.changeN  = this.changeN.bind(this)
-   this.gen_board  = this.gen_board.bind(this)
-   this.state={showBoard:false,n:3,noc:3}
+   this.genBoard  = this.genBoard.bind(this)
   }
                     
   renderSquare(i) {
@@ -22,55 +19,35 @@ class Board extends React.Component {
     );
   }
 
-  gen_board(){
-    let r=[]
-    let B=[]
+  genBoard(){
+    let row_content=[]
+    let full_board=[]
     let count = 0;
     for(let row = 0;row<this.props.n;row++){
-      r.push([])
+      row_content.push([])
       for(let col =0;col<this.props.n;col++){
-        r[row].push(this.renderSquare(count))
+        row_content[row].push(this.renderSquare(count))
         count++;
       }
     }
-    console.log(r)
+    // console.log(r)
     for(let i = 0;i<this.props.n;i++){
-      B.push(<div className="board-row">{
-        r[i]
+      full_board.push(<div className="board-row">{
+        row_content[i]
       }</div>)
     }
-    return(B)
+    return(full_board)
   }
 
  
   render() {
       
-     let V = this.gen_board();
-     if (!this.state.showBoard){
-      V = "Please Select dimension";
-     }
+     let board = this.genBoard();
       return (
         <div>
-          {/* <form>
-          <input id ="dim" type="number" minlength="0" onChange={this.changeN}></input>
-          <button onClick={this.submitDim}> Submit Dim</button>
-          </form> */}
-          {V}
-          {/* <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-          </div> */}
+      
+          {board}
+        
         </div>
       );
   }
